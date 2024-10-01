@@ -6,21 +6,41 @@
          version="5.0">
   <display-name>banco-talento</display-name>
 
-<!--  <servlet> -->
-<!--    <servlet-name>Main Servlet</servlet-name> -->
-<!--    <servlet-class>java.com.projeto.servlet.MainServlet</servlet-class> -->
-<!--  </servlet>-->
-<!--<servlet-mapping> -->
-<!--  <servlet-name>Main Servlet</servlet-name> -->
-<!--  <url-pattern>/</url-pattern> -->
-<!--</servlet-mapping>  -->
-<!--  <welcome-file-list> -->
-<!--    <welcome-file>index.html</welcome-file> -->
-<!--    <welcome-file>index.htm</welcome-file> -->
-<!--    <welcome-file>index.jsp</welcome-file> -->
-<!--    <welcome-file>default.html</welcome-file> -->
-<!--    <welcome-file>default.htm</welcome-file> -->
-<!--    <welcome-file>default.jsp</welcome-file> -->
-<!--  </welcome-file-list>-->
+  <welcome-file-list>
+      <welcome-file>index.html</welcome-file>
+  </welcome-file-list>  
+
+    <!-- Mapeamento do MainServlet -->
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>com.projeto.servlet.MainServlet</servlet-class>
+    </servlet>
+
+<!--    
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/talentos/*</url-pattern>
+    </servlet-mapping>
+-->
+    
+    <!-- Opcional: Configuração para servir recursos estáticos -->
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
 </web-app>
