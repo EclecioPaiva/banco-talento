@@ -2,8 +2,94 @@ Projeto dispoinível em http://localhost:8080/banco-talento/talentos
 
 [Tomcat Web Application Manager](http://localhost:8080/manage)
 
+## Instalação
 
-## Tests
+**Obs.:** Todos os comandos devem ser executado no diretório raiz do projeto.
+
+### Pré-requisitos
+
+Necessário ter o Docker Desktop instalado. 
+
+Para intalar, acesse [Install Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/)
+
+### Gerar o arquivo .env
+Copie o arquivo .env.sample para .env
+``` 
+cp .env.sample .env
+```
+
+### Compilar a imagem do docker
+```
+docker-compose build
+```
+   
+
+## Uso
+
+**Obs.:** Todos os comandos devem ser executado no diretório raiz do projeto.
+
+### Executar o serviço Tomcat e subir a aplicação
+
+```
+docker-compose up
+```
+
+Use a opção `-d` para subir o serviço em segundo plano
+
+
+### Parar o serviço do Tomcat
+
+```
+docker-compose down
+```
+
+### Compilar com maven (empacotar no arquivo .war)
+```
+  docker-compose down
+  docker-compose run --rm maven bash -c "mvn -X clean package"
+```
+
+### Logs do container Tomcat
+
+Os arquivos de logs do Tomcat têm funções específicas para monitorar o servidor e diagnosticar problemas:
+
+1. **`catalina.<data>.log`**: Este é o log principal do Tomcat, que contém mensagens de inicialização, shutdown, e erros do servidor. Ele registra informações sobre o funcionamento interno do Tomcat.
+
+2. **`localhost.<data>.log`**: Este arquivo contém logs específicos para as aplicações que estão sendo executadas no servidor local. Registra mensagens de erro ou informações específicas das aplicações hospedadas.
+
+3. **`localhost_access_log.<data>.txt`**: Esse log registra todos os acessos HTTP ao servidor. Ele contém informações detalhadas das requisições, como endereços IP, métodos HTTP, status de resposta e tempo de execução.
+
+Esses logs são úteis para a depuração e monitoramento da operação do servidor Tomcat.
+
+#### Listar os arquivos de logs 
+```
+docker-compose exec tomcat ls - logs
+```
+
+#### Monitorar o log principal do serviço Tomcat
+
+```
+docker-compose logs -f
+```
+
+
+### Monitorar um arquivo específico de log
+
+Supondo que desejamos monitorar o arquivo   logs/localhost_access_log.2024-10-01.txt
+
+```
+docker-compose exec tomcat tail -f logs/localhost_access_log.2024-10-01.txt
+```
+
+Para sair, digite Ctrl + C
+
+### Acessar o container Tomcat
+
+```
+docker-compose exec tomcat /bin/sh
+```
+
+## Testar as requisições 
 
 Comandos `curl` para testar todos os métodos (`GET`, `POST`, `PUT`, `DELETE`) do seu servlet:
 
