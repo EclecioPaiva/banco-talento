@@ -12,6 +12,9 @@ services:
       # Mapeia o diretório atual para dentro do contêiner
       - .:${WORKDIR:-/app}
       - ./conf/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml:ro
+      - ./conf/context.xml:/usr/local/tomcat/conf/context.xml:ro
+#      - ./conf/server.xml:/usr/local/tomcat/conf/server.xml
+#      - ./webapps/banco-talento/META-INF/context.xml:/usr/local/tomcat/webapps/banco-talento/META-INF/context.xml:ro
       - ./webapps/manager/META-INF/context.xml:/usr/local/tomcat/webapps/manager/META-INF/context.xml:ro
       - ./secrets/manager-password:/usr/local/tomcat/secrets/manager-password:ro
       - ./secrets/db-password:/usr/local/tomcat/secrets/db-password:ro

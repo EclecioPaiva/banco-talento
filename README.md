@@ -88,7 +88,7 @@ Para sair, digite Ctrl + C
 ### Acessar o container Tomcat
 
 ```
-docker-compose exec tomcat /bin/sh
+docker-compose exec tomcat bash
 ```
 
 ## Testar as requisições 
