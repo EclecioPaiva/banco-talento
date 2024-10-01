@@ -30,6 +30,7 @@ async function carregarTalentos() {
         // Verifica se há dados
         if (dados.length === 0) {
             mensagem.textContent = 'Nenhum talento encontrado.';
+            mensagem.className = 'error';
             return;
         }
 
@@ -73,6 +74,7 @@ async function carregarTalentos() {
     } catch (erro) {
         console.error('Erro ao carregar os talentos:', erro);
         mensagem.textContent = 'Não foi possível carregar os talentos. Por favor, tente novamente mais tarde.';
+        mensagem.className = 'error';
     }
 }
 
@@ -183,6 +185,47 @@ async function salvarAlteracoes(event) {
     }
 }
 
+// Função para lidar com o envio do formulário de adição
+async function adicionarTalento(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById('nome').value;
+    const mensagem = document.getElementById('message');
+
+    const url = `/banco-talento/talentos/`;
+
+    const dados = {
+        nome: nome
+    };
+
+    try {
+        const resposta = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dados)
+        });
+
+        if (!resposta.ok) {
+            throw new Error(`Erro na requisição: ${resposta.status} ${resposta.statusText}`);
+        }
+
+        const novoTalento = await resposta.json();
+
+        mensagem.textContent = 'Talento adicionado com sucesso.';
+        mensagem.className = 'success';
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 2000);
+
+    } catch (erro) {
+        console.error('Erro ao adicionar o talento:', erro);
+        mensagem.textContent = 'Não foi possível adicionar o talento. Por favor, tente novamente mais tarde.';
+        mensagem.className = 'error';
+    }
+}
+
 // Função para inicializar a página principal
 function inicializarPaginaPrincipal() {
     carregarTalentos();
@@ -196,6 +239,12 @@ function inicializarPaginaEdicao() {
     formulario.addEventListener('submit', salvarAlteracoes);
 }
 
+// Função para inicializar a página de adição
+function inicializarPaginaAdicao() {
+    const formulario = document.getElementById('adicionar-form');
+    formulario.addEventListener('submit', adicionarTalento);
+}
+
 // Inicializa a página correta com base no conteúdo do DOM
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('talentos-table')) {
@@ -204,5 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.getElementById('editar-form')) {
         inicializarPaginaEdicao();
+    }
+
+    if (document.getElementById('adicionar-form')) {
+        inicializarPaginaAdicao();
     }
 });

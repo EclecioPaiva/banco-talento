@@ -140,4 +140,12 @@ Esses comandos `curl` testam os métodos HTTP em seu servlet, permitindo interag
 
 ---
 
+
+
 git submodule update --remote
+
+Converter os caracteres de fim de linha (CRLF) do Windows para o padrão de fim de linha do Linux (LF) usando o sed
+
+```
+sed -i 's/\r$//' 
+```
