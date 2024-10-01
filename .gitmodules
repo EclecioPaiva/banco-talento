@@ -1,0 +1,3 @@
+[submodule "docker_service"]
+	path = docker_service
+	url = git@github.com:jailtoncarlos/docker_service.git
