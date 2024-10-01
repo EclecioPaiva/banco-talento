@@ -56,10 +56,10 @@ services:
       - USER_UID=${USER_UID:-1000}
       - USER_GID=${USER_GID:-1000}
       - USER_NAME=${USER_NAME:-username}
+  #        sudo chown -R ${USER_NAME}:${USER_NAME} ${WORKDIR}/target
     command: >
       bash -c "
-        mvn clean package        
-        chown -R ${USER_NAME}:${USER_NAME} ${WORKDIR}/target
+        mvn clean install        
       "
     volumes:
       - .:${WORKDIR:-/app} # Mapeia o diretório atual para dentro do contêiner
